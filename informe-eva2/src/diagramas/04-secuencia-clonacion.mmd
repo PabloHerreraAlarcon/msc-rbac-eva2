@@ -1,0 +1,23 @@
+sequenceDiagram
+    actor O as Administrador TI
+    participant UI as Portal (SPA)
+    participant API as API RBAC (cualquier servidor IIS)
+    participant DB as SQL Server
+    participant R as Redis
+
+    O->>UI: Elige usuario de referencia y usuario destino
+    UI->>API: GET /comparaciones?origen=A&destino=B
+    API->>DB: Lee asignaciones y excepciones de A y B
+    API-->>UI: Coincidentes, a agregar y a revocar
+    O->>UI: Ajusta la selección e ingresa motivo y ticket
+    UI->>API: POST /clonaciones (selección, motivo, ticket, versión leída)
+    API->>API: Valida rol, motivo, ticket, A ≠ B y destino ≠ operador
+    API->>DB: BEGIN TRANSACTION
+    API->>DB: Bloquea la fila de B (UPDLOCK, ROWLOCK) y verifica su versión
+    API->>DB: Inserta o cierra asignaciones de B
+    API->>DB: Recalcula la proyección de permisos efectivos de B
+    API->>DB: Inserta evento en la bitácora (append-only)
+    API->>DB: COMMIT (libera el bloqueo)
+    API->>R: INCR versión y DEL permisos:usuario:{B}
+    API-->>UI: 200 OK con el resumen aplicado
+    UI-->>O: Confirmación y enlace al evento de auditoría

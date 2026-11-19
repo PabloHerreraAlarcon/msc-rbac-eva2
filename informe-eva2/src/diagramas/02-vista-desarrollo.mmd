@@ -1,0 +1,21 @@
+flowchart TB
+    classDef red fill:#FEE2E2,stroke:#E11927,stroke-width:1.5px,color:#991B1B;
+    classDef navy fill:#E0E7FF,stroke:#0A2540,stroke-width:1.5px,color:#0A2540;
+    classDef dark fill:#1E293B,stroke:#0F172A,stroke-width:1.5px,color:#FFFFFF;
+    classDef green fill:#D1FAE5,stroke:#059669,stroke-width:1.5px,color:#065F46;
+
+    Web["web/<br/>React + Vite + TypeScript<br/>features/acceso · mis-permisos · colaboradores<br/>clonacion · excepciones · aplicaciones · auditoria"]:::navy
+    Api["Msc.Rbac.Api<br/>FastEndpoints: Features/&lt;Modulo&gt;/&lt;Operacion&gt;<br/>Endpoint + Request + Response + Validator"]:::red
+    Dom["Msc.Rbac.Domain<br/>entidades y reglas: permisos efectivos,<br/>propagación, clonación, separación de funciones"]:::red
+    Inf["Msc.Rbac.Infrastructure<br/>EF Core (SQL Server) · ASP.NET Core Identity<br/>StackExchange.Redis · cliente AD · correo SMTP"]:::red
+    Db["database/<br/>migraciones · procedimientos fachada<br/>permisos de la bitácora"]:::dark
+    Tst["tests/<br/>unitarias (xUnit) · integración (Testcontainers)<br/>regresión de SPs · extremo a extremo · carga (k6)"]:::green
+
+    Web -- "contrato OpenAPI" --> Api
+    Api --> Dom
+    Api --> Inf
+    Inf --> Dom
+    Inf -. "aplica" .-> Db
+    Tst -. "prueba" .-> Api
+    Tst -. "prueba" .-> Dom
+    Tst -. "prueba" .-> Db

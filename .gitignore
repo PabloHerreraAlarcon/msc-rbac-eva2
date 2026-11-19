@@ -1,0 +1,21 @@
+# dependencies and build output (each project also has its own .gitignore)
+node_modules/
+.pnpm-store/
+.reports/
+dist/
+
+# caches and logs
+.eslintcache
+*.log
+
+# Office lock files
+~$*
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+
+# secrets
+.env
+.env.*

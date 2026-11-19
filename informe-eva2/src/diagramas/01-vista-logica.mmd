@@ -1,0 +1,33 @@
+flowchart TB
+    classDef red fill:#FEE2E2,stroke:#E11927,stroke-width:1.5px,color:#991B1B;
+    classDef navy fill:#E0E7FF,stroke:#0A2540,stroke-width:1.5px,color:#0A2540;
+    classDef dark fill:#1E293B,stroke:#0F172A,stroke-width:1.5px,color:#FFFFFF;
+    classDef amber fill:#FEF3C7,stroke:#D97706,stroke-width:1.5px,color:#92400E;
+
+    P["Portal web (SPA)&nbsp;<br/>administración · Mis permisos · bitácora&nbsp;"]:::navy
+    SAT(["37 aplicaciones&nbsp;<br/>satélites&nbsp;"]):::navy
+
+    subgraph A["API RBAC (.NET 10)"]
+        direction LR
+        N1["Seguridad y negocio&nbsp;<br/>· Autenticación y autorización por rol&nbsp;<br/>· Módulos de negocio&nbsp;<br/>· Motor de permisos efectivos&nbsp;"]:::red
+        N2["Servicios internos&nbsp;<br/>· Registro de auditoría&nbsp;<br/>· Sincronización con AD (10 min)&nbsp;<br/>· Consulta para satélites&nbsp;"]:::red
+    end
+
+    subgraph D["Datos"]
+        direction LR
+        SQL[("SQL Server&nbsp;<br/>RBAC, cuentas,&nbsp;<br/>proyección y bitácora&nbsp;")]:::dark
+        Fac["Procedimientos&nbsp;<br/>fachada&nbsp;"]:::dark
+        Redis[("Redis&nbsp;<br/>caché&nbsp;")]:::amber
+    end
+
+    subgraph EXT["Servicios externos"]
+        direction LR
+        AD(["Directorio AD&nbsp;<br/>identidades&nbsp;"]):::navy
+        SMTP(["Correo&nbsp;<br/>corporativo&nbsp;"]):::navy
+    end
+
+    P -- "HTTPS / JSON" --> A
+    SAT -. "REST opcional" .-> A
+    A -- "lee y escribe" --> D
+    A -. "identidades y enlaces" .-> EXT
+    SAT -- "SPs legados" --> Fac

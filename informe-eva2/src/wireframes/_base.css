@@ -1,0 +1,32 @@
+/* Low-fidelity wireframe kit: greyscale on purpose (not brand colours). */
+* { box-sizing: border-box; }
+body { margin: 0; background: white; font-family: Roboto, Arial, sans-serif; font-size: 13px; color: black; }
+.wf { width: 1040px; border: 2px solid dimgray; background: white; }
+.top { display: flex; justify-content: space-between; align-items: center; padding: 8px 14px; background: gainsboro; border-bottom: 1px solid gray; font-weight: 700; }
+.top span { font-weight: 400; }
+.layout { display: flex; }
+.nav { width: 150px; border-right: 1px solid gray; padding: 10px 0; background: whitesmoke; }
+.nav div { padding: 6px 14px; color: dimgray; }
+.nav .on { background: white; color: black; font-weight: 700; border-left: 4px solid black; }
+.main { flex: 1; padding: 12px 16px; }
+h1 { font-size: 17px; margin: 0 0 10px; }
+h2 { font-size: 13px; margin: 12px 0 6px; text-transform: uppercase; letter-spacing: .04em; color: dimgray; }
+.row { display: flex; gap: 12px; align-items: flex-start; }
+.col { flex: 1; }
+.box { border: 1px solid gray; padding: 8px 10px; margin-bottom: 8px; }
+.field { display: inline-block; border: 1px solid gray; padding: 4px 8px; min-width: 160px; background: white; color: dimgray; }
+.lbl { display: inline-block; width: 110px; color: dimgray; }
+.btn { display: inline-block; border: 1px solid black; padding: 4px 12px; margin-right: 6px; background: whitesmoke; }
+.btn.pri { background: dimgray; color: white; border-color: dimgray; font-weight: 700; }
+.btn.off { color: darkgray; border-color: darkgray; }
+table { width: 100%; border-collapse: collapse; margin-bottom: 6px; }
+th, td { border: 1px solid darkgray; padding: 4px 6px; text-align: left; }
+th { background: gainsboro; }
+.tag { display: inline-block; border: 1px solid gray; padding: 0 6px; font-size: 11px; background: whitesmoke; }
+.tag.dark { background: dimgray; color: white; border-color: dimgray; }
+.add { font-weight: 700; }
+.del { text-decoration: line-through; color: dimgray; }
+.err { border: 2px dashed black; padding: 6px 8px; margin: 6px 0; background: whitesmoke; }
+.n { display: inline-block; width: 18px; height: 18px; line-height: 18px; border-radius: 50%; background: black; color: white; text-align: center; font-size: 11px; font-weight: 700; margin-right: 4px; }
+.muted { color: dimgray; }
+.right { text-align: right; }

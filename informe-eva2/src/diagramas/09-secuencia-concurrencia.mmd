@@ -1,0 +1,18 @@
+sequenceDiagram
+    actor A1 as Administrador 1
+    actor A2 as Administrador 2
+    participant S1 as Servidor IIS 1
+    participant S2 as Servidor IIS 2
+    participant DB as SQL Server
+
+    A1->>S1: Otorgar permiso P a lrojas (ARR envía a S1)
+    A2->>S2: Quitar permiso P a lrojas (ARR envía a S2)
+    S1->>DB: BEGIN TRAN + bloquea fila de lrojas
+    S2->>DB: BEGIN TRAN + pide la misma fila
+    Note over S2,DB: S2 espera: la fila está bloqueada por S1
+    S1->>DB: Aplica cambio, proyección y auditoría
+    S1->>DB: COMMIT (libera la fila)
+    S1-->>A1: 200 OK
+    DB-->>S2: Obtiene la fila, pero su versión ya cambió
+    S2->>DB: ROLLBACK
+    S2-->>A2: 409 · «Otro administrador modificó este usuario. Recargue.»

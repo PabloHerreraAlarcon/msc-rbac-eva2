@@ -1,0 +1,65 @@
+erDiagram
+    departamento ||--o{ perfil : "agrupa"
+    perfil ||--|{ perfil_version : "versiona"
+    perfil_version ||--|{ perfil_version_permiso : "define"
+    tb_perfil ||--o{ perfil_version_permiso : "incluido en"
+    tb_sistema ||--o{ tb_perfil : "tiene"
+    colaborador ||--o{ asignacion_perfil : "recibe"
+    perfil_version ||--o{ asignacion_perfil : "aplicada en"
+    colaborador ||--o{ excepcion : "tiene"
+    tb_perfil ||--o{ excepcion : "otorga o retira"
+    colaborador ||--o{ permiso_efectivo : "resulta en"
+    tb_perfil ||--o{ permiso_efectivo : "aparece en"
+
+    departamento {
+        int id_departamento PK
+        nvarchar nombre UK
+    }
+    perfil {
+        int id_perfil PK
+        int id_departamento FK
+        nvarchar nombre
+    }
+    perfil_version {
+        int id_perfil PK, FK
+        int version PK
+        datetime2 creada_en
+    }
+    perfil_version_permiso {
+        int id_perfil PK, FK
+        int version PK, FK
+        int dc_perfil PK, FK
+    }
+    tb_sistema {
+        int dc_sistema PK
+    }
+    tb_perfil {
+        int dc_perfil PK
+        int dc_sistema FK
+    }
+    colaborador {
+        int id_colaborador PK
+        varchar id_directorio UK
+        varchar dc_usuario UK, FK
+        varchar estado
+    }
+    asignacion_perfil {
+        bigint id_asignacion PK
+        int id_colaborador FK
+        int id_perfil FK
+        int version FK
+        datetime2 fecha_fin
+    }
+    excepcion {
+        bigint id_excepcion PK
+        int id_colaborador FK
+        int dc_perfil FK
+        char tipo
+        varchar estado
+    }
+    permiso_efectivo {
+        varchar dc_usuario PK
+        int dc_sistema PK
+        int dc_perfil PK, FK
+        varchar origen
+    }

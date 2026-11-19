@@ -1,0 +1,30 @@
+<div class="wf">
+	<div class="top">MSC · Portal RBAC <span>Administrador TI: ctorres · Cerrar sesión</span></div>
+	<div class="layout">
+		<div class="nav">
+			<div>Colaboradores</div><div>Solicitudes de acceso</div><div>Perfiles</div><div class="on">Comparar y clonar</div><div>Excepciones</div><div>Aplicaciones</div><div>Auditoría</div>
+		</div>
+		<div class="main">
+			<h1>Comparar y clonar permisos</h1>
+			<div class="row">
+				<div class="col box"><span class="n">1</span><span class="lbl">Referencia</span><span class="field">mgarcia · María García</span></div>
+				<div class="col box"><span class="lbl">Destino</span><span class="field">lrojas · Luis Rojas</span></div>
+			</div>
+			<h2>Perfiles (lo que se puede clonar)</h2>
+			<table>
+				<tr><th style="width:30px"></th><th>Perfil</th><th>Referencia</th><th>Destino</th><th>Resultado</th></tr>
+				<tr><td>☑</td><td>Facturador</td><td>Sí</td><td>No</td><td class="add">+ se agrega</td></tr>
+				<tr><td>—</td><td>Operador de muelle</td><td>Sí</td><td>Sí</td><td>coincide</td></tr>
+				<tr><td>☐</td><td>Supervisor de turno</td><td>No</td><td>Sí</td><td class="del">se quitaría (solo si se marca)</td></tr>
+			</table>
+			<h2><span class="n">2</span>Diferencia en permisos efectivos (solo informativa)</h2>
+			<table>
+				<tr><th>Sistema</th><th>Permiso</th><th>Referencia</th><th>Destino después de clonar</th></tr>
+				<tr><td>Facturación Demo</td><td>FACTURADOR</td><td>Perfil</td><td class="add">+ Perfil</td></tr>
+				<tr><td>Security.NET</td><td>CONSULTA</td><td><span class="tag dark">EXCEPCIÓN</span></td><td>No se copia · <u>Solicitar como excepción</u></td></tr>
+			</table>
+			<div class="box"><span class="n">3</span><span class="lbl">Ticket</span><span class="field">INC-2290</span> <span class="lbl">Motivo</span><span class="field" style="min-width:330px">Reemplazo en facturación por vacaciones</span></div>
+			<div class="right"><span class="btn">Cancelar</span><span class="btn pri">Clonar 1 perfil</span></div>
+		</div>
+	</div>
+</div>

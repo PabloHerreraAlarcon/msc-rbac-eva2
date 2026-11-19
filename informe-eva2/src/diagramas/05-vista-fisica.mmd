@@ -1,0 +1,35 @@
+flowchart TB
+    classDef red fill:#FEE2E2,stroke:#E11927,stroke-width:1.5px,color:#991B1B;
+    classDef navy fill:#E0E7FF,stroke:#0A2540,stroke-width:1.5px,color:#0A2540;
+    classDef dark fill:#1E293B,stroke:#0F172A,stroke-width:1.5px,color:#FFFFFF;
+    classDef amber fill:#FEF3C7,stroke:#D97706,stroke-width:1.5px,color:#92400E;
+
+    Edge["Citrix Workspace&nbsp;<br/>Microsoft Edge (portal)&nbsp;"]:::navy
+    ARR["Servidor IIS con ARR&nbsp;<br/>balanceo de carga y TLS&nbsp;"]:::navy
+
+    subgraph GRANJA["Granja IIS · API .NET 10"]
+        direction LR
+        IIS1["Servidor IIS 1&nbsp;"]:::red
+        IIS2["Servidor IIS 2&nbsp;"]:::red
+    end
+
+    SAT["37 aplicaciones&nbsp;<br/>satélites&nbsp;"]:::navy
+
+    subgraph DATOS["Datos"]
+        direction LR
+        SQL[("SQL Server corporativo&nbsp;<br/>~300 GB RAM · esquema rbac&nbsp;")]:::dark
+        RDS[("Redis&nbsp;<br/>corporativo&nbsp;")]:::amber
+    end
+
+    subgraph EXT["Servicios corporativos"]
+        direction LR
+        SMTP(["Correo SMTP&nbsp;<br/>con TLS&nbsp;"]):::navy
+        AD(["API de usuarios&nbsp;<br/>activos de AD&nbsp;"]):::navy
+    end
+
+    Edge -- "HTTPS 443" --> ARR
+    ARR --> GRANJA
+    ARR ~~~ SAT
+    GRANJA -- "cifrado · cuenta gMSA" --> DATOS
+    GRANJA -. "correo y AD" .-> EXT
+    SAT -- "SPs legados" --> SQL

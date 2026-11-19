@@ -1,0 +1,25 @@
+sequenceDiagram
+    participant S as Aplicación satélite
+    participant API as API RBAC (consulta)
+    participant R as Redis
+    participant DB as SQL Server (proyección)
+
+    S->>API: GET /permisos-efectivos/{usuario} (clave de aplicación)
+    API->>API: Valida la clave de la aplicación
+    alt Caché disponible y clave presente (acierto)
+        API->>R: GET permisos:usuario:{id}
+        R-->>API: JSON de permisos
+        API-->>S: 200 OK (desde caché)
+    else Caché disponible y clave ausente (fallo de caché)
+        API->>R: GET permisos:usuario:{id}
+        R-->>API: (vacío)
+        API->>DB: SELECT en tb_permiso_efectivo (índice por usuario)
+        DB-->>API: Filas de permisos
+        API->>R: SET permisos:usuario:{id} con TTL
+        API-->>S: 200 OK (desde base)
+    else Redis no responde (modo degradado)
+        API-xR: GET (supera el tiempo máximo de espera)
+        API->>DB: SELECT en tb_permiso_efectivo
+        DB-->>API: Filas de permisos
+        API-->>S: 200 OK (degradado) y alerta a operación
+    end

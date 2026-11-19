@@ -1,0 +1,46 @@
+erDiagram
+    tb_usuario ||--|| colaborador : "corresponde a"
+    colaborador ||--o| cuenta : "tiene"
+    colaborador ||--o{ solicitud_acceso : "solicita"
+    cuenta ||--o{ enlace_un_uso : "recibe"
+    ejecucion_sincronizacion ||--o{ colaborador : "da de alta o baja"
+
+    tb_usuario {
+        varchar dc_usuario PK
+    }
+    colaborador {
+        int id_colaborador PK
+        varchar id_directorio UK
+        varchar estado
+    }
+    cuenta {
+        int id_cuenta PK
+        int id_colaborador FK, UK
+        varchar nombre_usuario UK
+        varchar hash_contrasena
+        varchar rol
+        varchar estado
+        int intentos_fallidos
+    }
+    solicitud_acceso {
+        bigint id_solicitud PK
+        int id_colaborador FK
+        varchar estado
+        int creada_por
+        int resuelta_por
+    }
+    enlace_un_uso {
+        bigint id_enlace PK
+        int id_cuenta FK
+        char tipo
+        binary hash_token
+        datetime2 expira_en
+        datetime2 usado_en
+    }
+    ejecucion_sincronizacion {
+        bigint id_ejecucion PK
+        datetime2 inicio
+        int activos_recibidos
+        int bajas
+        bit frenada
+    }

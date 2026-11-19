@@ -1,0 +1,27 @@
+# Metadatos del informe de diseño · EVA 2 · Proyecto Integrado (TIHV43).
+# Se usan en la portada, el encabezado y los documentos exportados.
+# Las instrucciones de la EVA 2 piden en portada: proyecto, sección, integrantes, modalidad,
+# versión del documento y fecha. La plantilla no tiene campos de versión ni de modalidad,
+# por eso van en 'tipo' y 'subtitulo'.
+titulo: Diseño de la Solución de Software para la Modernización del Sistema RBAC de MSC Chile
+subtitulo: 'Proyecto MSC-01 · Grupo G07 · LCS SpA — Modalidad: caso entregado por el docente, grupo de 6 integrantes'
+tipo: Informe de Diseño · EVA 2 · Versión 0.1 (borrador)
+area: Tecnologías de la Información y Ciberseguridad
+carrera: Ingeniería en Informática
+asignatura: Proyecto Integrado
+codigo: TIHV43
+seccion: 2026/P TIHV43/V-IEI-N4-P3-C6-CICLO2/V
+academico: Edgar López
+integrantes:
+    - Pablo Alfredo Herrera Alarcón
+    - Jesús Ramón Rincón Valles
+    - Sabrina Del Carmen Silva Rodríguez
+    - Abraham Esteban Tapia Escalona
+    - Catalina Amalia Cubillos Villanueva
+    - José Francisco Abraham Morales Sepúlveda
+fecha: 17-11-2026
+
+# Numeración de títulos: 'romano' (I., II.…) o 'arabigo' (1., 1.1…).
+# Empieza en 1: en la EVA 1 se descontó porque la numeración partía en «2.» sin sección 1.
+numeracion: arabigo
+capitulo_inicial: 1

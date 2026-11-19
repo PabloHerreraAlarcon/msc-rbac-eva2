@@ -1,0 +1,37 @@
+erDiagram
+    colaborador ||--o{ evento_auditoria : "es afectado por"
+    evento_auditoria ||--o{ adjunto_auditoria : "respalda"
+    evento_auditoria |o--o| evento_auditoria : "anula a"
+    departamento ||--o{ campana_recertificacion : "se revisa en"
+    campana_recertificacion ||--|{ decision_recertificacion : "registra"
+    colaborador ||--o{ decision_recertificacion : "es revisado en"
+
+    colaborador {
+        int id_colaborador PK
+    }
+    departamento {
+        int id_departamento PK
+    }
+    evento_auditoria {
+        bigint id_evento PK
+        uniqueidentifier id_operacion
+        varchar tipo_evento
+        int id_colaborador FK
+        bigint id_evento_anulado FK
+    }
+    adjunto_auditoria {
+        bigint id_adjunto PK
+        bigint id_evento FK
+        binary sha256
+    }
+    campana_recertificacion {
+        int id_campana PK
+        int id_departamento FK
+        varchar estado
+    }
+    decision_recertificacion {
+        int id_campana PK, FK
+        int id_colaborador PK, FK
+        int dc_perfil PK, FK
+        char decision
+    }
